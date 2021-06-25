@@ -2,7 +2,7 @@ import Axios, { AxiosRequestConfig } from "axios"
 import { BASE_URL } from "@/utils/url"
 
 // 创建实例
-let HTTP = Axios.create({
+const HTTP = Axios.create({
   baseURL: BASE_URL,
   timeout: 30000,
   headers: {'X-Custom-Header': 'foobar'}
@@ -11,7 +11,7 @@ let HTTP = Axios.create({
 // 请求拦截器
 HTTP.interceptors.request.use((config) => {
   // 判断token
-  let token = sessionStorage.getItem("TOKEN");
+  const token = sessionStorage.getItem("TOKEN");
   token && (config.headers["Authorization"] = token);
   return dealRequest(config);
 }, (error) => {
@@ -27,7 +27,7 @@ HTTP.interceptors.response.use((respose) => {
 
 // 处理请求：get请求时增加时间戳
 function dealRequest(config: AxiosRequestConfig) {
-  let method:any = config.method;
+  const method:any = config.method;
   if(method.toLowerCase() === 'get') {
     config.params && (config.params.timestamp = new Date().getTime());
   }
@@ -36,7 +36,7 @@ function dealRequest(config: AxiosRequestConfig) {
 
 // 处理错误
 function dealError(error: any) {
-  let errorCode = error.response;
+  const errorCode = error.response;
   // 进行错误代码判断
   console.log(errorCode)
 }
