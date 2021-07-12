@@ -2,7 +2,7 @@ import Axios, { AxiosRequestConfig } from "axios"
 import { BASE_URL } from "@/utils/url"
 
 // 创建实例
-let HTTP = Axios.create({
+const HTTP = Axios.create({
   baseURL: BASE_URL,
   timeout: 30000,
   headers: {'X-Custom-Header': 'foobar'}
@@ -11,7 +11,7 @@ let HTTP = Axios.create({
 // 请求拦截器
 HTTP.interceptors.request.use((config) => {
   // 判断token
-  let token = sessionStorage.getItem("TOKEN");
+  const token = sessionStorage.getItem("TOKEN");
   token && (config.headers["Authorization"] = token);
   return dealRequest(config);
 }, (error) => {
